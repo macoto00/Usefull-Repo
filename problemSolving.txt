@@ -4,6 +4,8 @@
 == Unexpected WSL error ==
 ==========================
 
+Windows problem with Docker endlessly starting, then trigger Unexpected WSL error and stop working.
+
 https://forums.docker.com/t/an-unexpected-error-was-encountered-while-executing-a-wsl-command/137525/38
 
 1- Run Powershell as Admin.
