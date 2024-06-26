@@ -1,0 +1,21 @@
+==========================
+== Docker Problems =======
+==========================
+== Unexpected WSL error ==
+==========================
+
+https://forums.docker.com/t/an-unexpected-error-was-encountered-while-executing-a-wsl-command/137525/38
+
+1- Run Powershell as Admin.
+2- Run the following commands one at a time to disable all Virtualization features (select no (N) when asked to restart computer):
+DISM /Online /disable-Feature /FeatureName:VirtualMachinePlatform
+DISM /Online /disable-Feature /FeatureName:HypervisorPlatform
+DISM /Online /disable-Feature /FeatureName:Microsoft-Windows-Subsystem-Linux
+3- Restart your computer manually
+4- Run Powershell as Admin once your computer has rebooted.
+5- Run the following commands in this order one at a time to re-enable all Windows Virtualization features (Again, select no (N) when asked to restart computer):
+DISM /Online /enable-Feature /FeatureName:Microsoft-Windows-Subsystem-Linux
+DISM /Online /enable-Feature /FeatureName:VirtualMachinePlatform
+DISM /Online /enable-Feature /FeatureName:HypervisorPlatform
+6- Reboot your computer manually.
+7-Run Docker and see if it worked!
