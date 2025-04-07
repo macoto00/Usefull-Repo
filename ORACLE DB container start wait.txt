@@ -1,0 +1,12 @@
+
+                oracleDbContainer = new GenericContainer<>(DockerImageName.parse("gvenzl/oracle-free:slim"))
+                        .withCopyFileToContainer(MountableFile.forClasspathResource("testcontainers/oracle/init-oracle.sh"), "/container-entrypoint-initdb.d/init-oracle.sh")
+                        .withCopyFileToContainer(MountableFile.forClasspathResource("testcontainers/oracle/001-create-schemas.sql"), "/container-entrypoint-initdb.d/001-create-schemas.sql")
+                        .withCopyFileToContainer(MountableFile.forClasspathResource("testcontainers/oracle/002-populate-tables.sql"), "/container-entrypoint-initdb.d/002-populate-tables.sql")
+                        .withExposedPorts(ORACLE_PORT)
+                        .withEnv("ORACLE_USER", "mbt")
+                        .withEnv("ORACLE_PASSWORD", "mbt")
+                        .withReuse(true)
+                        .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger(AbstractFeatureTest.class)))
+                        .waitingFor(Wait.forLogMessage(".*DATABASE IS READY TO USE!.*", 1)
+                                .withStartupTimeout(Duration.ofMinutes(1)));
